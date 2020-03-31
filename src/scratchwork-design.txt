@@ -1,0 +1,6 @@
+component:
+
+header
+homepage
+    menu items container
+    menu items
