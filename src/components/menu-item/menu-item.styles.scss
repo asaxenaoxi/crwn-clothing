@@ -1,0 +1,80 @@
+.menu-item {
+    min-width: 30%;
+    height: 240px;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    margin: 0 7.5px 15px;
+    
+    overflow: hidden;
+    //this property basically stops any transitions from overflowing outside of the natural size of the div provided above.
+    //we are changing the background image to be 1.1 times when the image is currently already 100%, so once the transition
+    //happens the image would grow larger than the div component but this property prevents that from happening and hides it.
+
+    &.large {
+        height: 380px;
+    }
+    //this is a clasification of menu-item where if this parameter is also passed in classname along with menu-item 
+    //it will use every other property and just override height to 380px instead of 240px specified in normal setting
+
+    &:hover {
+        cursor:pointer;
+
+        .background-image {
+            transform: scale(1.1);
+            transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+        }
+
+        .content {
+            opacity: 0.9;
+        }
+    }
+    //this adds an automatic property of hovering to the menu-item class where on hover, cursor changes to a hand, 
+    //any sub-classe with name background-image and content will change their properties to the specified value. 
+    //cubic-bezier is math function being provided to transition where it calculated how to get to the final transformed
+    //size of 1.1 times in 6 seconds.
+
+    &:first-child {
+      margin-right: 7.5px;
+    }
+  
+    &:last-child {
+      margin-left: 7.5px;
+    }
+  
+    .background-image {
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .content {
+      height: 90px;
+      padding: 0 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid black;
+      background-color: white;
+      opacity: 0.7;
+      position: absolute;
+      //this means that the position of the div with context classname will use the position properties defined above with respect to 
+      //the holding div / ansector div or in the case where there is no container div then full document page.
+  
+      .title {
+        font-weight: bold;
+        margin-bottom: 6px;
+        font-size: 22px;
+        color: #4a4a4a;
+      }
+  
+      .subtitle {
+        font-weight: lighter;
+        font-size: 16px;
+      }
+    }
+  }

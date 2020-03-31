@@ -69,3 +69,30 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 # crwn-clothing
 React App Course
+
+# Mar 31 2020 Git Help
+Created Git Repo on GitHub.com and added a Readme with not much text
+
+To make crwn-clothing on my desktop into a git repo
+git init
+Checking if all have been parked to be added in commit.
+git status
+To point the git remote to github we use the following command
+git remote add origin https://github.com/asaxenaoxi/crwn-clothing.git
+To commit changes to local repo
+git commit -m "meaningful msg"
+Could not commit due to lack of email address required by github so followed below command and it worked after a pop up of github to login came 
+git config  --global user.email "asaxena.india@gmail.com"
+Now to push the local repo commits to Github
+git push origin master [origin is short for the remote repo and master is the branch to which we are pushing]
+Got error due to Readme file not in local repo, asked to do pull from remote
+git pull origin master
+This failed due to head mismatch so had to run following command
+git pull origin master --allow-unrelated-histories
+Failed due to merge conflict
+git merge
+vi Readme
+removed <<<HEAD ==== >>>
+git add Readme
+git commit -m "merged changes being added back to local repo"
+git push origin master
