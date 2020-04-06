@@ -26,6 +26,53 @@ we want to dynamically use the component link url, so we pick what url matched t
 of where we want to go and that is being passed down in props by the directory as it was defined in the selections array as one of the 
 attributes called linkUrl.
 
-3. We also learned the use of "...otherSectionProps" shortcut to pass attributes of one object down to the components implicitly without 
-naming every attribute if the component property names are also the same as the attribute names. Only exception is "id" attribute which
-is named key in the component properties, hence we deconstruct the "selection" object as {id, ...otherSectionProps} 
+3. We also learned the use of "..."<variableName> shortcut to pass attributes of one object down to the components implicitly without 
+naming every property of the component equalling the attribute of the object when the attribute name and property name is same. Only 
+exception is "id" attribute which is named key in the component properties, hence we deconstruct the "selection" object as 
+{id, ...otherSectionProps} 
+
+Chapter 70:
+1. Whenever you create a component where there is a state and requirement of data etc, its best to create a class rather than a functional
+component. You need to call constructor with props to ensure its available and can be passed to super and then you initialize state of this
+component by creating an object of objects / arrays or single primitive values or a combination.
+
+class ShopPage extends React.Component 
+{
+    constructor(props) 
+    {
+        super(props);
+
+        this.state = {
+            collections: SHOP_DATASTORE
+        }
+    }
+
+    render() {
+        return( ... HTML & JS ... )
+    }
+}
+
+VS
+
+Arrow function with props as a parameter
+const ShopPage = (props) => (
+... HTML & JS ...
+)
+
+2. If you have a large object / array and you do not want to over crowd your own main object, you can put it in its own js file and import
+the object and equalize it within the state.
+
+3. .filter & .map return arrays themselves. Both are taking a function with return of either each single item or item and index and then 
+return of that function for each item is based on the condition, so in case .filter((item, index) => (index < 4)) will return item only 
+when index is less than 4 only, after that it will ignore and no more items will be put into the return array.
+
+Chapter 71:
+1. Adding dynamic styles to div as follows
+<div className='background-image' style={{backgroundImage: `url(${props.imageUrl})`}}></div>
+
+Ref: https://www.w3schools.com/react/react_css.asp
+style is a css property which accepts objects as value. The first {} is to specify that its javascript and then next {} specify that its an object 
+with key:value pairs inside of it, eg backgroundImage: <value>. Also backgrounImage is a js property not css and hence is in camel case and since 
+that entire thing is a js object, the value side which needs another variable (imageUrl) needs to be put in ticks which evaluate the dynamic part 
+of the string and puts all of it in a concatinated form as value. the reason you need ${} is because you need to tell js that while this is a 
+string value but its got something that needs to be evaluated from javascript so anything with ${} needs to be expanded from js variable to string
