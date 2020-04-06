@@ -15,33 +15,38 @@ class DirectoryMenu extends React.Component
                     title: 'HATS',
                     subtitle: 'SHOP NOW',
                     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+                    linkUrl: 'hats',
                     id: 1
                 },
                 {
                     title: 'JACKETS',
                     subtitle: 'SHOP NOW',
                     imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-                    id: 1
+                    linkUrl: 'jackets',
+                    id: 2
                 },
                 {
                     title: 'SNEAKERS',
                     subtitle: 'SHOP NOW',
                     imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-                    id: 1
+                    linkUrl: 'sneakers',
+                    id: 3
                 },
                 {
                     title: 'WOMENS',
                     subtitle: 'SHOP NOW',
                     imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+                    linkUrl: 'womens',
                     size: 'large',
-                    id: 1
+                    id: 4
                 },
                 {
                     title: 'MENS',
                     subtitle: 'SHOP NOW',
                     imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+                    linkUrl: 'men',
                     size: 'large',
-                    id: 1
+                    id: 5
                 }
             ]
         }
@@ -51,13 +56,18 @@ class DirectoryMenu extends React.Component
         return (
         <div className='directory-menu'>
             {
-                this.state.selections.map((selection) => (
+                //this.state.selections.map((selection) => (
+                //OR this.state.selections.map(({title, subtitle, imageUrl, linkUrl, size, id}) => (
+                //Now that we need to pass a lot of variables with same name as props, we can use a shortcut and for that we need to deconstruct selection
+                //we only deconstruct id explicitly because we store it as id and the component is expecting it as key prop
+                this.state.selections.map(({id, ...otherSectionProps}) => (    
                 <MenuItem 
-                    title={selection.title}
+                    /*title={selection.title}
                     subtitle={selection.subtitle}
                     imageUrl={selection.imageUrl}
-                    size={selection.size != null ? selection.size : ''}
-                    key={selection.id}
+                    size={selection.size != null ? selection.size : ''}*/
+                    key={id}
+                    {...otherSectionProps}
                 />
                 ))
             }

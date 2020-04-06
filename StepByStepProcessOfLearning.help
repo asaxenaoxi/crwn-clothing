@@ -1,0 +1,31 @@
+Chapter 67:
+1. Till now we had made single page without any ability to route to different pages. These are not real pages but it helps react SPAs
+to behave and act just like normal webpages. For this we need to import "BrowserRouter" from react-router-dom in the index.js file
+where the app is initialized and then we wrap this around the <App /> component like this <BrowserRouter><App/></BrowserRouter>.
+
+2. Once you have wrapped this around, it provides the SPA ability to call upon route and links to navigate. To do this you need to
+import "Route, Link, Switch" from react-router-dom. Route basically taks 3 arguments : exact, path, component. We replace simple
+embeding to component <XYZ></XYZ> to <Route exact path="/XYZ" component={XYZ}></Route>. This creates a path for the component.
+
+3. Now to link between these components you can use <Link/> and reference any of these paths or you could use the history.push property
+to navigate by changing it dynamically anywhere in the code which can be more powerful than the <Link/> component.
+
+4. The way the Route component wraps the main component is that it provides the calling component with properties match, history, location
+where various values are present to help you manage.
+
+Chapter 68:
+1. We learned to superpower our components to access history, location and match properties using withRouter() from react-router-dom
+To do this, we include this in the component where we need access to these properties and after importing, all you need to do is
+while exporting the component we wrap the component in withRouter(MenuItem) [MenuItem is example of the component we are supercharging]
+and thats it, now going to the MenuItem component, we will have access to these props inside of the props variable of that component along
+with all the other properties being passed through react
+
+2. Once we had access to these properties, we wanted to create an onClick action on the MenuItem for hats where it would goto that page.
+To do this we in the div created a onClick function which basically uses props.history.push() to change the address location and in that
+we want to dynamically use the component link url, so we pick what url matched to the current page (props.match.url) and append the url
+of where we want to go and that is being passed down in props by the directory as it was defined in the selections array as one of the 
+attributes called linkUrl.
+
+3. We also learned the use of "...otherSectionProps" shortcut to pass attributes of one object down to the components implicitly without 
+naming every attribute if the component property names are also the same as the attribute names. Only exception is "id" attribute which
+is named key in the component properties, hence we deconstruct the "selection" object as {id, ...otherSectionProps} 
