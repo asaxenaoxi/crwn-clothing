@@ -76,3 +76,9 @@ with key:value pairs inside of it, eg backgroundImage: <value>. Also backgrounIm
 that entire thing is a js object, the value side which needs another variable (imageUrl) needs to be put in ticks which evaluate the dynamic part 
 of the string and puts all of it in a concatinated form as value. the reason you need ${} is because you need to tell js that while this is a 
 string value but its got something that needs to be evaluated from javascript so anything with ${} needs to be expanded from js variable to string
+
+Chapter 72:
+1. Create Header component that will always live above anything that gets rendered and it can be easily done by adding <Header/> before the 
+<Switch><Route></Route></Switch> portion of the App.js
+
+2. Modify App.css to universally set color and link click properties of <a></a> tag to std black and no underlining

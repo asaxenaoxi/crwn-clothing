@@ -5,6 +5,8 @@ import './App.css';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 
+import Header from './components/header/header.component';
+
 const HatsPage = () =>
 (
   <div>
@@ -21,6 +23,9 @@ function App() {
       rendered that too. Now when we add exact it will make sure only exact is matched. Now if you had no
       exact and had switch on and get to /hats, it would hit / match is and stop any other render. So it
       ensures only 1 component that came first in the list and gets matched is rendered. */}
+      <Header/>
+      {/*this header component will always render no matter what for this app on any path, this helps setup
+      the page without having to add header on everypage*/}
       <Switch> 
         <Route exact='true' path='/' component={HomePage} />
         <Route exact='true' path='/hats' component={HatsPage} />
