@@ -82,3 +82,83 @@ Chapter 72:
 <Switch><Route></Route></Switch> portion of the App.js
 
 2. Modify App.css to universally set color and link click properties of <a></a> tag to std black and no underlining
+
+3. import { ReactComponent as Logo }
+This is a new special syntax when importing SVG in React. The ReactComponent import name is special and tells Create React App that you want a 
+React component that renders an SVG, rather than its filename. 
+https://create-react-app.dev/docs/adding-images-fonts-and-files/
+
+Chapter 76:
+1. Here we learn how to put forms in react. We created std <form></form> and used few properties like onChange, onSubmit and handled those using 
+functions. 
+OnSubmit we wanted to prevent the form from doing its default function and hence we called event.preventDefault() which stops the browser 
+from taking any action and then we reset the state.
+OnChange we created a single function to handle all changes on all input fields. Now on change we need to set the state variable but since its a 
+single function and we dont know which input element is it, we need to dynamically refer to the state variable and set the value by using following
+syntax. We first deconstruct the event.target which holds a lot of information about the element on form that changed and we bring out the name of
+the 
+const {value, name} = event.target;
+this.setState({[name]: value});
+
+Chapter 77:
+1. A Component has properties and children. Anything that is within the <...> definition is a property and anything inbetween <>...</> is children.
+You refer to them with props. or ...props for property and children for children.
+
+Chapter 80:
+1. Using firebase for auth and db
+yarn add firebase
+
+2. You need to create a project in firebase web console and in the settings download the configuration with which you are going to connect to firebase. all
+the keys and other things required are provided within firebase console which you need to copy and add to your project. An organized way to do this is to 
+create a 'firebase' directory in 'src' and then in there put firebase.util.js file where you create a config const and equal it the object you copied
+from firebase console.
+You need to import firebase, firebase auth, firebase firestore which is the DB into your firebase.util.js
+To setup google or other authentication mechanism which firebase has already integrated for you are provided in the settings. you need to turn on those
+providers in your firebase console settings and then invoke and configure them inside of firebase.util.js. Once you have configured, you need to 
+export each provider out with a functions of the signIns and use them in your react app code elsewhere.
+
+3. When we sign in using the google popup, in firebase console you can see the users who have signed in and will provide analytics for the same.
+
+Chapter 85:
+1. Here we learn how to get the user that might have already been logged in:
+This is an observer pattern available from firebase SDK where anytime the user that is logged in has a state change, the backend will inform our app 
+of this change. If the user signed out of the google or another partner , it will send a null. For clearnup we get back a unsubscription function from
+firebase to close this connection which is registered with firebase so that there are no memory leaks and then we call it whenever our App component 
+is dismounting. We register this callback inside componentDidMount() function.
+this.unsubscribeFromAuth = auth.onAuthStateChanged( (user) => {this.setState({currentUser: user});)
+
+2. Also clean any memory being used to maintain this observer connection with firebase, when the app dismounts we need to clean and close the connection
+else we can have potential memory leaks. The way we do that is by storing a call back give by the Auth SDK as a return of onAuthStateChanged() and we
+register to call that returned callback function in componentWillUnmount() for the class so when the app is shutting it can do clean up.
+this.unsubscribeFromAuth()
+
+Optional: How to fix 403: restricted_client error
+It's possible you may encounter a google Authorization error that says 403:restricted_client. If you do, here are the instructions to fix it!
+There should be a Learn More link in the popup, clicking that should take you to the Google APIs console that has three tabs under the header named 
+Credentials, OAuth Consent Screen, and Domain Verification. Go to the OAuth Consent Screen tab and update the Application Name to "crwn-clothing" 
+or any other name you're comfortable with (i.e. the name of your project). Click on save at the bottom, then try logging into your verified Google 
+account thereafter.
+
+Chapter 86:
+1. Styling in sassy css / scss
+if we do not put & before a child  class property it would mean that any child element with class name "google-sign-in" inside of an element with 
+class "custom-button" needs to be applied these styles where as what we mean is 1 element with both the properties defined within the same element 
+needs to applied few styles differently when google-sign-in is also present eg "google-sign-in custom-button". {&:} is for transition styles with 
+defined keywords like hover 
+
+.custom-button {
+
+    ...styles
+
+    &:hover {
+        ...transition styles for "customer-button" class only
+    }    
+    
+    &.google-sign-in
+    {
+        ...overriding styles
+        &:hover {
+            ...transition styles for "google-sign-in custom-button"
+        }
+    }
+}

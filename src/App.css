@@ -7,3 +7,8 @@ a {
   text-decoration: none;
   color: black;
 }
+
+*{
+  box-sizing: border-box;
+  /*padding and margin and border doesnt affect the elements to ensure divs align up*/
+}

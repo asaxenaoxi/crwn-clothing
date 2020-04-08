@@ -1,0 +1,37 @@
+.custom-button {
+  min-width: 165px;
+  width: auto;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Open Sans Condensed';
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+
+  /*if we do not put & before a child  class property it would mean that any child element with class name "google-sign-in" inside of an
+  element with class "custom-button" needs to be applied these styles where as what we mean is 1 element with both the properties defined
+  within the same element needs to applied few styles differently when google-sign-in is also present eg "google-sign-in custom-button"
+  &: is for transition styles with defined keywords like hover*/ 
+  &.google-sign-in
+  {
+    background-color: #4285f4;
+    color: white;
+    
+    &:hover {
+      background-color: #357ae8;
+      border:none;
+    }
+  }
+
+  &:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+}
