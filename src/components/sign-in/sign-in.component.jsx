@@ -28,7 +28,7 @@ class SignIn extends React.Component
         //name in the state objct with the value of value.
     }
 
-    handleOnSubmit = (event) => 
+    handleOnSubmit = async (event) => 
     {
         event.preventDefault();
         this.setState({email: '', password: ''});

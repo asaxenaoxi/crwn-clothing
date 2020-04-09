@@ -1,40 +1,57 @@
+Appendix Chapter 322 & 327:
+1. Javascript Promises
+Before promises, you had callback functions what when you nested would create a hell of callbacks as all were async api calls.
+
+const myPromise = new Promise( callBackFunction )
+
+const callBackFunction(resolve, reject)
+{
+    //setTimeout takes 2 values, a callback and a timeout value. Callback is what will be called after timer is done.
+    setTimeout( () => {resolve('I have succeeded');}, 1000);
+}
+
+"resolve" is set a value when the promise is succ and "reject" is set a value when promise is failed.
+To access that state after deinition of the promise you call then() where the callback is value and action on the value of the promise's succ state value
+
+myPromise.then(value => console.log(value));
+
+output will be : I have succeeded after 1 sec / 1000 millisec
+
+You can chain .then() and finally .catch() for error.
+
+eg. fetch() returns a promise
+
+ANOTHER WAY is async await function calling methodology
+
+const myAsyncFunc = async () => {
+    const userResponse = await fetch();
+    //userReponse will be given the value of the resolved promise from fetch
+    //you action the userResponse
+    const userPosts = await fetch(post from userResponse.userid)
+    //again wait till you get user post and then do something with it.
+
+    //makes the promise code a lot more readable and any errors from the await calls can be caught in a try/catch block
+}
+
 Chapter 67:
-1. Till now we had made single page without any ability to route to different pages. These are not real pages but it helps react SPAs
-to behave and act just like normal webpages. For this we need to import "BrowserRouter" from react-router-dom in the index.js file
-where the app is initialized and then we wrap this around the <App /> component like this <BrowserRouter><App/></BrowserRouter>.
+1. Till now we had made single page without any ability to route to different pages. These are not real pages but it helps react SPAs to behave and act just like normal webpages. For this we need to import "BrowserRouter" from react-router-dom in the index.js file where the app is initialized and then we wrap this around the <App /> component like this <BrowserRouter><App/></BrowserRouter>.
 
-2. Once you have wrapped this around, it provides the SPA ability to call upon route and links to navigate. To do this you need to
-import "Route, Link, Switch" from react-router-dom. Route basically taks 3 arguments : exact, path, component. We replace simple
-embeding to component <XYZ></XYZ> to <Route exact path="/XYZ" component={XYZ}></Route>. This creates a path for the component.
+2. Once you have wrapped this around, it provides the SPA ability to call upon route and links to navigate. To do this you need to import "Route, Link, Switch" from react-router-dom. Route basically taks 3 arguments : exact, path, component. We replace simple embeding to component <XYZ></XYZ> to <Route exact path="/XYZ" component={XYZ}></Route>. This creates a path for the component.
 
-3. Now to link between these components you can use <Link/> and reference any of these paths or you could use the history.push property
-to navigate by changing it dynamically anywhere in the code which can be more powerful than the <Link/> component.
+3. Now to link between these components you can use <Link/> and reference any of these paths or you could use the history.push property to navigate by changing it dynamically anywhere in the code which can be more powerful than the <Link/> component.
 
-4. The way the Route component wraps the main component is that it provides the calling component with properties match, history, location
-where various values are present to help you manage.
+4. The way the Route component wraps the main component is that it provides the calling component with properties match, history, location where various values are present to help you manage.
 
 Chapter 68:
-1. We learned to superpower our components to access history, location and match properties using withRouter() from react-router-dom
-To do this, we include this in the component where we need access to these properties and after importing, all you need to do is
-while exporting the component we wrap the component in withRouter(MenuItem) [MenuItem is example of the component we are supercharging]
-and thats it, now going to the MenuItem component, we will have access to these props inside of the props variable of that component along
-with all the other properties being passed through react
+1. We learned to superpower our components to access history, location and match properties using withRouter() from react-router-dom To do this, we include this in the component where we need access to these properties and after importing, all you need to do is while exporting the component we wrap the component in withRouter(MenuItem) [MenuItem is example of the component we are supercharging] and thats it, now going to the MenuItem component, we will have access to these props inside of the props variable of that component along with all the other properties being passed through react
 
-2. Once we had access to these properties, we wanted to create an onClick action on the MenuItem for hats where it would goto that page.
-To do this we in the div created a onClick function which basically uses props.history.push() to change the address location and in that
-we want to dynamically use the component link url, so we pick what url matched to the current page (props.match.url) and append the url
-of where we want to go and that is being passed down in props by the directory as it was defined in the selections array as one of the 
-attributes called linkUrl.
+2. Once we had access to these properties, we wanted to create an onClick action on the MenuItem for hats where it would goto that page. To do this we in the div created a onClick function which basically uses props.history.push() to change the address location and in that we want to dynamically use the component link url, so we pick what url matched to the current page (props.match.url) and append the url of where we want to go and that is being passed down in props by the directory as it was defined in the selections array as one of the attributes called linkUrl.
 
-3. We also learned the use of "..."<variableName> shortcut to pass attributes of one object down to the components implicitly without 
-naming every property of the component equalling the attribute of the object when the attribute name and property name is same. Only 
-exception is "id" attribute which is named key in the component properties, hence we deconstruct the "selection" object as 
-{id, ...otherSectionProps} 
+3. We also learned the use of "..."<variableName> operator to pass attributes of one object down to the components implicitly without naming every property of the component equalling the attribute of the object when the attribute name and property name is same. Only exception is "id" attribute which is named key in the component properties, hence we deconstruct the "selection" object as {id, ...otherSectionProps} 
+... operator works with all javascript objects, which basically allows to pass indefinite parameters
 
 Chapter 70:
-1. Whenever you create a component where there is a state and requirement of data etc, its best to create a class rather than a functional
-component. You need to call constructor with props to ensure its available and can be passed to super and then you initialize state of this
-component by creating an object of objects / arrays or single primitive values or a combination.
+1. Whenever you create a component where there is a state and requirement of data etc, its best to create a class rather than a functional component. You need to call constructor with props to ensure its available and can be passed to super and then you initialize state of this component by creating an object of objects / arrays or single primitive values or a combination.
 
 class ShopPage extends React.Component 
 {
@@ -59,23 +76,16 @@ const ShopPage = (props) => (
 ... HTML & JS ...
 )
 
-2. If you have a large object / array and you do not want to over crowd your own main object, you can put it in its own js file and import
-the object and equalize it within the state.
+2. If you have a large object / array and you do not want to over crowd your own main object, you can put it in its own js file and import the object and equalize it within the state.
 
-3. .filter & .map return arrays themselves. Both are taking a function with return of either each single item or item and index and then 
-return of that function for each item is based on the condition, so in case .filter((item, index) => (index < 4)) will return item only 
-when index is less than 4 only, after that it will ignore and no more items will be put into the return array.
+3. .filter & .map return arrays themselves. Both are taking a function with return of either each single item or item and index and then return of that function for each item is based on the condition, so in case .filter((item, index) => (index < 4)) will return item only when index is less than 4 only, after that it will ignore and no more items will be put into the return array.
 
 Chapter 71:
 1. Adding dynamic styles to div as follows
 <div className='background-image' style={{backgroundImage: `url(${props.imageUrl})`}}></div>
 
 Ref: https://www.w3schools.com/react/react_css.asp
-style is a css property which accepts objects as value. The first {} is to specify that its javascript and then next {} specify that its an object 
-with key:value pairs inside of it, eg backgroundImage: <value>. Also backgrounImage is a js property not css and hence is in camel case and since 
-that entire thing is a js object, the value side which needs another variable (imageUrl) needs to be put in ticks which evaluate the dynamic part 
-of the string and puts all of it in a concatinated form as value. the reason you need ${} is because you need to tell js that while this is a 
-string value but its got something that needs to be evaluated from javascript so anything with ${} needs to be expanded from js variable to string
+style is a css property which accepts objects as value. The first {} is to specify that its javascript and then next {} specify that its an object with key:value pairs inside of it, eg backgroundImage: <value>. Also backgrounImage is a js property not css and hence is in camel case and since that entire thing is a js object, the value side which needs another variable (imageUrl) needs to be put in ticks which evaluate the dynamic part of the string and puts all of it in a concatinated form as value. the reason you need ${} is because you need to tell js that while this is a string value but its got something that needs to be evaluated from javascript so anything with ${} needs to be expanded from js variable to string
 
 Chapter 72:
 1. Create Header component that will always live above anything that gets rendered and it can be easily done by adding <Header/> before the 
@@ -84,67 +94,46 @@ Chapter 72:
 2. Modify App.css to universally set color and link click properties of <a></a> tag to std black and no underlining
 
 3. import { ReactComponent as Logo }
-This is a new special syntax when importing SVG in React. The ReactComponent import name is special and tells Create React App that you want a 
-React component that renders an SVG, rather than its filename. 
+This is a new special syntax when importing SVG in React. The ReactComponent import name is special and tells Create React App that you want a React component that renders an SVG, rather than its filename. 
 https://create-react-app.dev/docs/adding-images-fonts-and-files/
 
 Chapter 76:
-1. Here we learn how to put forms in react. We created std <form></form> and used few properties like onChange, onSubmit and handled those using 
-functions. 
-OnSubmit we wanted to prevent the form from doing its default function and hence we called event.preventDefault() which stops the browser 
-from taking any action and then we reset the state.
-OnChange we created a single function to handle all changes on all input fields. Now on change we need to set the state variable but since its a 
-single function and we dont know which input element is it, we need to dynamically refer to the state variable and set the value by using following
-syntax. We first deconstruct the event.target which holds a lot of information about the element on form that changed and we bring out the name of
-the 
+1. Here we learn how to put forms in react. We created std <form></form> and used few properties like onChange, onSubmit and handled those using functions.
+OnSubmit we wanted to prevent the form from doing its default function and hence we called event.preventDefault() which stops the browser from taking any action and then we reset the state. OnChange we created a single function to handle all changes on all input fields. Now on change we need to set the state variable but since its a single function and we dont know which input element is it, we need to dynamically refer to the state variable and set the value by using following syntax. We first deconstruct the event.target which holds a lot of information about the element on form that changed and we bring out the name of
+the element and then for that name create/update a variable of that name with the deconstructed value.
+
 const {value, name} = event.target;
 this.setState({[name]: value});
 
 Chapter 77:
-1. A Component has properties and children. Anything that is within the <...> definition is a property and anything inbetween <>...</> is children.
-You refer to them with props. or ...props for property and children for children.
+1. A Component has properties and children. Anything that is within the <...> definition is a property and anything inbetween <>...</> is children. You refer to them with props. or ...props for property and children for children.
 
 Chapter 80:
-1. Using firebase for auth and db
+1. Using firebase library/SDK for auth and db
+
 yarn add firebase
 
-2. You need to create a project in firebase web console and in the settings download the configuration with which you are going to connect to firebase. all
-the keys and other things required are provided within firebase console which you need to copy and add to your project. An organized way to do this is to 
-create a 'firebase' directory in 'src' and then in there put firebase.util.js file where you create a config const and equal it the object you copied
-from firebase console.
-You need to import firebase, firebase auth, firebase firestore which is the DB into your firebase.util.js
-To setup google or other authentication mechanism which firebase has already integrated for you are provided in the settings. you need to turn on those
-providers in your firebase console settings and then invoke and configure them inside of firebase.util.js. Once you have configured, you need to 
-export each provider out with a functions of the signIns and use them in your react app code elsewhere.
+2. You need to create a project in firebase web console and in the settings download the configuration with which you are going to connect to firebase. all the keys and other things required are provided within firebase console which you need to copy and add to your project. An organized way to do this is to create a 'firebase' directory in 'src' and then in there put firebase.util.js file where you create a config const and equal it the object you copied from firebase console.
+You need to import firebase, firebase auth, firebase firestore which is the DB into your firebase.util.js To setup google or other authentication mechanism which firebase has already integrated for you are provided in the settings. you need to turn on those providers in your firebase console settings and then invoke and configure them inside of firebase.util.js. Once you have configured, you need to export each provider out with a functions of the signIns and use them in your react app code elsewhere.
 
 3. When we sign in using the google popup, in firebase console you can see the users who have signed in and will provide analytics for the same.
 
 Chapter 85:
 1. Here we learn how to get the user that might have already been logged in:
-This is an observer pattern available from firebase SDK where anytime the user that is logged in has a state change, the backend will inform our app 
-of this change. If the user signed out of the google or another partner , it will send a null. For clearnup we get back a unsubscription function from
-firebase to close this connection which is registered with firebase so that there are no memory leaks and then we call it whenever our App component 
-is dismounting. We register this callback inside componentDidMount() function.
+This is an observer pattern available from firebase SDK where anytime the user that is logged in has a state change, the backend will inform our app of this change. If the user signed out of the google or another partner , it will send a null. For clearnup we get back a unsubscription function from firebase to close this connection which is registered with firebase so that there are no memory leaks and then we call it whenever our App component is dismounting. We register this callback inside componentDidMount() function.
+
 this.unsubscribeFromAuth = auth.onAuthStateChanged( (user) => {this.setState({currentUser: user});)
 
-2. Also clean any memory being used to maintain this observer connection with firebase, when the app dismounts we need to clean and close the connection
-else we can have potential memory leaks. The way we do that is by storing a call back give by the Auth SDK as a return of onAuthStateChanged() and we
-register to call that returned callback function in componentWillUnmount() for the class so when the app is shutting it can do clean up.
+2. Also clean any memory being used to maintain this observer connection with firebase, when the app dismounts we need to clean and close the connection else we can have potential memory leaks. The way we do that is by storing a call back give by the Auth SDK as a return of onAuthStateChanged() and we register to call that returned callback function in componentWillUnmount() for the class so when the app is shutting it can do clean up.
+
 this.unsubscribeFromAuth()
 
 Optional: How to fix 403: restricted_client error
-It's possible you may encounter a google Authorization error that says 403:restricted_client. If you do, here are the instructions to fix it!
-There should be a Learn More link in the popup, clicking that should take you to the Google APIs console that has three tabs under the header named 
-Credentials, OAuth Consent Screen, and Domain Verification. Go to the OAuth Consent Screen tab and update the Application Name to "crwn-clothing" 
-or any other name you're comfortable with (i.e. the name of your project). Click on save at the bottom, then try logging into your verified Google 
-account thereafter.
+It's possible you may encounter a google Authorization error that says 403:restricted_client. If you do, here are the instructions to fix it! There should be a Learn More link in the popup, clicking that should take you to the Google APIs console that has three tabs under the header named Credentials, OAuth Consent Screen, and Domain Verification. Go to the OAuth Consent Screen tab and update the Application Name to "crwn-clothing" or any other name you're comfortable with (i.e. the name of your project). Click on save at the bottom, then try logging into your verified Google account thereafter.
 
 Chapter 86:
 1. Styling in sassy css / scss
-if we do not put & before a child  class property it would mean that any child element with class name "google-sign-in" inside of an element with 
-class "custom-button" needs to be applied these styles where as what we mean is 1 element with both the properties defined within the same element 
-needs to applied few styles differently when google-sign-in is also present eg "google-sign-in custom-button". {&:} is for transition styles with 
-defined keywords like hover 
+if we do not put & before a child  class property it would mean that any child element with class name "google-sign-in" inside of an element with class "custom-button" needs to be applied these styles where as what we mean is 1 element with both the properties defined within the same element needs to applied few styles differently when google-sign-in is also present eg "google-sign-in custom-button". {&:} is for transition styles with defined keywords like hover 
 
 .custom-button {
 
@@ -162,3 +151,21 @@ defined keywords like hover
         }
     }
 }
+
+Chapter 89:
+1. Firebase Firestore is a noSQL database where within a given DB , we store collections which can have documents and in the documents you can again have collections->documents or document can contain key value pairs. Every document needs to be with a unique ID and collections usually have names like a table name or a reference name.
+
+firestore.collection().doc().collection().doc()
+firestore.collection('////')
+firestore.doc('////')
+
+2. Firestore returns 2 objects, QueryRef and QuerySnapshot. Reference is a pointer to the location and any set(), delete(), update() functions is calld on the reference obj. We get the data back as snapshot obj which we get queryref obj with a get() function. 
+
+const userQueryRef = firestore.doc(`users/${userAuthObj.uid}`);
+const userQuerySnapshot = await userQueryRef.get();
+if(!userQuerySnapshot.exists)
+{}
+
+Chapter 91:
+1. queryRef.onSnapshot(()=>{})
+function is similar to queryRef.get() except get(), gets the data once and onSnapshot() gets the data once and also sets up a listener to continue listening to any data changes to this reference in firestore and get the data.

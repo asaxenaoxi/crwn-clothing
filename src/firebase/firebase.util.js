@@ -14,6 +14,48 @@ const config =
     measurementId: "G-L7XPP04BB7"
 };
 
+export const createUserProfileDocument = async (userAuthObj, additionalUserData) =>
+{
+    if(!userAuthObj)
+    {
+        console.log("userAuthObj provided by firebase::auth is null");
+        return;
+    }
+
+    console.log("Fetching queryRef for userAuthObj(id) = ", userAuthObj.uid);
+    //const userRef = firestore.collection('users').doc(`${userAuthObj.uid}`); <=this and below mean the same thing
+    const userQueryRef = firestore.doc(`users/${userAuthObj.uid}`);
+
+    //await is used in any async function calls
+    const userQuerySnapshot = await userQueryRef.get();
+    
+    //exists is a property inside the snapshot object which tells if there was data at that location or not
+    if(!userQuerySnapshot.exists)
+    {
+        const {displayName, email} = userAuthObj;
+        const createdAt = new Date();
+
+        try
+        {
+            //this function asynchronously creates the data in the document referenced above.
+            console.log("User(", displayName, ") doesnt exist in firestore, adding data to document(", userAuthObj.uid, ") = ");
+            await userQueryRef.set({
+            displayName,
+            email, 
+            createdAt,
+            ...additionalUserData
+            });
+        }
+        catch(error)
+        {
+            console.log("Error while creating user: ", error.message);
+        }
+    }
+
+    //If data doesnt exist, we create it above, else if it does then we just return the ref, in all cases we return the ref
+    return userQueryRef;
+}
+
 //we are initializing the key/settings that we got from firebase web in our project settings
 firebase.initializeApp(config);
 
