@@ -1,5 +1,5 @@
 import React from 'react';
-import './collection-item.styles.scss';
+import '../../styles/collection-item.styles.scss';
 
 //(props) OR ({id, name, price, imageUrl})
 const CollectionItem = ({id, name, price, imageUrl}) => (

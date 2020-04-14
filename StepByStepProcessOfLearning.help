@@ -169,3 +169,6 @@ if(!userQuerySnapshot.exists)
 Chapter 91:
 1. queryRef.onSnapshot(()=>{})
 function is similar to queryRef.get() except get(), gets the data once and onSnapshot() gets the data once and also sets up a listener to continue listening to any data changes to this reference in firestore and get the data.
+
+Chapter 93:
+1. When we tried to create user with email/password method, it first gave a 400 error, the reason for that is we had not enabled this method in firebase authentication console. Once you enable it, it should have saved it.

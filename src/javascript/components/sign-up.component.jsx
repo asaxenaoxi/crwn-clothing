@@ -1,8 +1,8 @@
 import React from 'react';
-import './sign-up.styles.scss';
-import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.components';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.util';
+import '../../styles/sign-up.styles.scss';
+import FormInput from './form-input.component';
+import CustomButton from './custom-button.components';
+import { auth, createUserProfileDocument } from '../utils/firebase.util';
 
 class SignUp extends React.Component
 {
@@ -45,11 +45,19 @@ class SignUp extends React.Component
         {
             //Out of the json obj sent back by the below function, userAuth obj is in the user keyword, hence we are destructuring it out
             //firebase will use this email and password combo and create us a new user and give us a token to manage
+            //When we tried doing this, we got a 400 error back from google, the reason is we had not enabled this method in firebase auth
+            //To enable it we would goto the firebase console, goto Authentication and in sign-in method, enable email and password.
+            console.log("auth.createUserWithEmailAndPassword()::handleOnSubmit() being called.");
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
             //displayName is being sent as additional parameters to be stored in the firestore
+            //there is already a displayName in the userAuthObj, so when we print the displayName in createUserProfileDocument() it prints
+            //null as we dont get displayName from userAuthObj
+            console.log("filebase.util::createUserProfileDocument() being called.");
             await createUserProfileDocument(user, {displayName});
 
+            //console.log("starting timer for 30s");
+            //setTimeout(()=>console.log("timeout over"), 30000);
             //once the data has been stored, we will clear the state & the form and take the user to the homepage
             this.setState(
             {

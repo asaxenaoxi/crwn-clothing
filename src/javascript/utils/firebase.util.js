@@ -39,6 +39,7 @@ export const createUserProfileDocument = async (userAuthObj, additionalUserData)
         {
             //this function asynchronously creates the data in the document referenced above.
             console.log("User(", displayName, ") doesnt exist in firestore, adding data to document(", userAuthObj.uid, ") = ");
+            console.log("Additional data= ", additionalUserData);
             await userQueryRef.set({
             displayName,
             email, 

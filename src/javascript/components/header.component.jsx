@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './header.styles.scss';
+import '../../styles/header.styles.scss';
 import {ReactComponent as Logo} from '../../assets/logo.svg';
-import {auth} from '../../firebase/firebase.util';
+import {auth} from '../utils/firebase.util';
 
 const Header = ({currentUser}) => (
 /*

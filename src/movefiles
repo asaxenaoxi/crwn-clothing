@@ -1,0 +1,13 @@
+#!/bin/bash
+
+listOfJSXFiles=$(find pages/ | grep jsx)
+echo "$listOfJSXFiles"
+for i in $listOfJSXFiles;
+	do cp -rf $i ./javascript/;
+	done
+
+listOfStylesFiles=$(find pages/ | grep css)
+echo "$listOfStylesFiles"
+for i in $listOfStylesFiles;
+	do cp -rf $i ./styles/;
+	done

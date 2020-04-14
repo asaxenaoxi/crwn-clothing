@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 //properties in Directory so why pass it to Directory and hence we super charge MenuItem with withRouter() and allow it access directly 
 //without getting it passed down the chain to it.
 
-import './menu-item.styles.scss';
+import '../../styles/menu-item.styles.scss';
 
 const MenuItem = (props) => (
     <div 
