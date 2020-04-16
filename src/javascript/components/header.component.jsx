@@ -5,8 +5,14 @@ import {ReactComponent as Logo} from '../../assets/logo.svg';
 import {auth} from '../utils/firebase.util';
 import { connect } from 'react-redux';
 
+//If you have only one default export and you try and use the {} deconstructor to get the CartIcon, it will throw an error as deconstructor basically
+//will try and CartIcon inside of CartIcon which doesnt exist.
+import CartIcon from './cart-icon.component';
+import CartDropdown from './cart-dropdown.component';
+
 //currentUser on props is coming from redux after supercharging this component with connect() and not when the component is being laid out in <App>
-const Header = ({currentUser}) => (
+const Header = ({currentUser, hideCart}) => (
+    //const {currentUser}
 /*
 holding div
 (inside 2 next level containers)
@@ -31,14 +37,39 @@ holding div
                 :
                     <Link className="option" to="/signin">SIGN IN</Link> 
             }
+            <CartIcon></CartIcon>
         </div>
+        {
+            hideCart
+            ?
+            null
+            :
+            <CartDropdown></CartDropdown>
+        }
     </div>
 )
 
 //This function can be anything but best practice is to use this name as everyone does
 //this function takes in the rootReducer which is really our application state now and 
 //from that returns the state's component specific reducer's object value
-const mapStateToProps = (reduxState) => ({ currentUser: reduxState.user.currentUser})
+
+/* 1st way
+const mapStateToProps = (reduxState) => (
+                                            { 
+                                                currentUser: reduxState.user.currentUser,
+                                                hideCart: reduxState.cart.hidden
+                                            }
+                                        );*/
+
+/* 2nd way */
+//Here when you want to destructure nested values, we use the {var:{attirbute}} collon method to get the 2nd level destructuring
+const mapStateToProps = ( { user: {currentUser}, cart: {hidden} }) => (
+                                            { 
+                                                currentUser,
+                                                hideCart: hidden
+                                            }
+                                        );
+
 //The above function basically reads that, if you pass me the redux state = rootReducer, i will extract the specific object called
 //user.currentUser from it, set it to a property value named currentUser and pass an object with that property which can then
 //be passed to the Header component to return a newer <Supercharged Header currentUser=state.user.currentUser/>. 

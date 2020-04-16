@@ -231,3 +231,9 @@ Chapter 105:
 <Route exact path='/signin' component={SignInAndSignUp}/>
 <Route exact path='/signin' render={() => IF ? (<Redirect to='/'/>) : (<SignInAndSignUp/>)}/>
 This is basically saying when anyone routes to /signin, check a condition and redirect to another path if true, else return back the component <SignInAndSignUp>
+
+Chapter 106:
+Whenever you want to use an svg asset , you need to import it as a ReactComponent and then use it.
+Also when you get an import error, see if its default then you dont use the {} deconstructor else when its multiple exports from that file and you need accesss to one or more of those pieces then you explicityly deconsruct {} that variable out.
+eg. import CartIcon from './cart-icon.component' and not { CartIcon } as there is only one export from this file
+import { setCurrentUser } from './javascript/redux/user.redux'; Deconstructed setCurrentUser from import because there are 3 exports from the file user.redux
