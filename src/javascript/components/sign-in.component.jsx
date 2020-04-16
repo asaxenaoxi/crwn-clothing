@@ -4,7 +4,7 @@ import FormInput from './form-input.component';
 import CustomButton from './custom-button.components';
 
 //we are importing the google setup we did for firebase in firebase.util.js
-import { signInWithGoogle } from '../utils/firebase.util';
+import { auth, signInWithGoogle } from '../utils/firebase.util';
 
 class SignIn extends React.Component
 {
@@ -31,7 +31,19 @@ class SignIn extends React.Component
     handleOnSubmit = async (event) => 
     {
         event.preventDefault();
-        this.setState({email: '', password: ''});
+
+        try
+        {
+            const { email, password } = this.state; 
+            console.log("Signing in with email/password: '", email, "' + '", password + "'");
+            auth.signInWithEmailAndPassword(email, password);
+            this.setState({email: '', password: ''});
+        }
+        catch(error)
+        {
+            console.log("handleOnSubmit() error signing with email and password:");
+            console.error(error);
+        }
     }
 
     render()

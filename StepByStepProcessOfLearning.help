@@ -172,3 +172,62 @@ function is similar to queryRef.get() except get(), gets the data once and onSna
 
 Chapter 93:
 1. When we tried to create user with email/password method, it first gave a 400 error, the reason for that is we had not enabled this method in firebase authentication console. Once you enable it, it should have saved it.
+
+How sign-up is happening?
+1. We register an auth change on firebase authentication library when the app component/page mounts. This basically starts listening to any changes to the auth table for this application instance. In this instance when there is a change, we save the user in the firestore DB anyways. This 
+2. At the same time, when you click sign-up, we try and first create the user in firebase::auth and save this data but 
+
+Chapter 95:
+Redux is central state management so that each component doesnt have states but use properties. 
+1. Single source of truth
+2. State is read only
+3. Changes using pure functions : which is a function where 1 input will always give same output even if you run it a 1000 times.
+
+Arch Pattern : FLUX Pattern
+
+Adding redux to project
+yarn add redux redux-logger react-redux
+
+2. How to use a Redux
+
+What is redux = Action -> Middleware -> Root Reducer -> Store -> Component
+
+Action = any user action or component's internal action which is an object of 2 values : 'type' of action and 'payload' value of action {type: '', payload: ''}
+Store = storage of state like values for the application which is an aggregation or different state objects for each components. Store is created by providing it the rootReducer object(master) and all middleware functions that need to be processed before rootReducer can take further action.
+Middleware functions = as the name suggests are any functions that will take some processing action on actions before rootReducer (master store) can be updated eg logger middleware which takes the action, logs the previous state and then new state once the componentReducer has processed the action and changed the state.
+RootReducer = is nothing but a combination of componentReducers by passing all combineReducer functions in an object to a combineReducer() function 
+componentReducer = is a function which takes state and action and returns either the same state or a new state based on the action type that was passed to it
+
+Step 1. Create componentReducer 
+    a. INITIAL_STATE object with all values
+    b. redcuer function takes state and action and state should be initialized to INITIAL_STATE. the function switches again action.type and decide how to change the state.
+Step 2. Create RootReducer
+    a. import all the component reducer functions (1b.)
+    b. call combineReducers function where we pass an object of each imported reducer function as an individual element
+Step 3. Create the store 
+    a. create an array of all middleware preprocessing functions
+    b.
+Step 4. Import and Configure redux Provider 
+    a. Need to do this inside index.js and wrap it around the <App></App> component just like we did with <Router></Router> component
+    b. Import store obj which is returned by the createStore() function and pass it as a param to the <Provider store={}></Provider>
+Step 5. Create action creator functions
+Step 6. mapStateToProps, connect() supercharging the component to use redux store/state values and removing passing of the props to that component if previously done
+Step 7. mapDispatchToProps, connect() supercharging the component to use redux action items to set the redux store/state. These properties are then used by the supercharged component's code to call the setter functions to set the values.
+
+Chapter 103.
+Higher Order componentReducers (HoC)
+These are components in React that take a component and return a super charged components with extra capabilities.
+
+eg. export default withRouter(MenuItem) we used in menu-item.components.jsx
+
+This import is used to super charge the component to have access to history, location and match properties of the Route for any component React only makes available these properties to the first child component which in this case is HomePage, after that, we would need to pass or tunnel the properties through every component down the chain. In this example, HomePage->Directory->MenuItem. But we do not need these properties in Directory so why pass it to Directory and hence we super charge MenuItem with withRouter() and allow it access directly without getting it passed down the chain to it.
+
+Chapter 104:
+mapDispatchToProps [How to set it up]
+
+Chapter 105:
+1. Redirect from react-router-dom to redirect off from sign-in/up page once the auth flow is successful
+2. render={} property on a component in place of component={} for <Route></Route>
+<Route exact path='/signin' component={SignInAndSignUp}/>
+<Route exact path='/signin' render={() => IF ? (<Redirect to='/'/>) : (<SignInAndSignUp/>)}/>
+This is basically saying when anyone routes to /signin, check a condition and redirect to another path if true, else return back the component <SignInAndSignUp>
