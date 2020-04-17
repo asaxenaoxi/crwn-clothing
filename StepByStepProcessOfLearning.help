@@ -237,3 +237,9 @@ Whenever you want to use an svg asset , you need to import it as a ReactComponen
 Also when you get an import error, see if its default then you dont use the {} deconstructor else when its multiple exports from that file and you need accesss to one or more of those pieces then you explicityly deconsruct {} that variable out.
 eg. import CartIcon from './cart-icon.component' and not { CartIcon } as there is only one export from this file
 import { setCurrentUser } from './javascript/redux/user.redux'; Deconstructed setCurrentUser from import because there are 3 exports from the file user.redux
+
+Chapter 108:
+Remember that onClick does not work on react components but only on native DOM components. Tried to add onClick to Cart Icon in Header, instead we implemented the onClick on a Div inside of the cart icon component rather than header itself. But in Chapter 110 , we were successfully able to fire onClick on custom comp
+
+Chapter 110:
+We made onClick work on custom react component as well, strangely enough, dont know why it didnt work when we tried it for Cart Icon in header

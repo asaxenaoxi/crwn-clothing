@@ -11,9 +11,12 @@ const CollectionPreview = ({title, items}) => (
             //as otherItemProps which can then further be spread or just referenced to be passed (as many got passed) anywhere else in the code.
             items
             .filter((item, index) => index < 4)
-            .map(({id, ...otherItemProps}) => 
+            //.map(({id, ...otherItemProps}) => //We were first not needing the item in CollectionItem but now that we have got the Add Item to Cart button
+            //and we need to store the item in the cart and pass it to cart redux state, we need to make following changes where only item is being passed 
+            //rather than spreading the item properites
+            .map((item) =>
             (
-                <CollectionItem key={id} {...otherItemProps}/>
+                <CollectionItem key={item.id} item={item}/>
             ))
         }
         </div>

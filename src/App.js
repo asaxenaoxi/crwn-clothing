@@ -6,19 +6,13 @@ import HomePage from './javascript/pages/homepage.page';
 import ShopPage from './javascript/pages/shop.page';
 import Header from './javascript/components/header.component';
 import SignInAndSignUp from './javascript/pages/sign-in-and-sign-up.page';
+import HatsPage from './javascript/pages/hats.page';
 
 import { createUserProfileDocument, auth } from './javascript/utils/firebase.util';
 import { connect } from 'react-redux';
 
 //I need to deconstruct the specific objects from the complete import if there are more than 1 exports from the file.
 import { setCurrentUser } from './javascript/redux/user.redux';
-
-const HatsPage = () =>
-(
-  <div>
-    <h1>HATS PAGE</h1>
-  </div>
-)
 
 class App extends React.Component {
 
