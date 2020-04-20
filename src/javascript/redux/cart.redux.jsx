@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 const INITIAL_STATE = 
 {
     hidden: true,
@@ -74,5 +76,13 @@ export const updateItemOnCart = (currentCartItems, itemToAdd) =>
     //you spread all the currentCartItems arrya and then add this item with a new quantity field and assign it a value of 1
     return [...currentCartItems, {...itemToAdd, quantity: 1}];
 }
+
+/*****Cart Selector *****/
+//This gets cart slice
+const selectCart = (reduxState) => reduxState.cart;
+//This get cartItems from cart slice
+export const selectCartItems = createSelector([selectCart], (cart)=>cart.cartItems);
+//This gets cartItem count by calculating it against the cartItems array and all of this cached
+export const selectCartItemsCount = createSelector([selectCartItems], (cartItems) => cartItems.reduce((acc, item) => acc+item.quantity, 0));
 
 export default cartReducer;

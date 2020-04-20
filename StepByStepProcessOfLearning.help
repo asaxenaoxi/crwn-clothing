@@ -1,3 +1,10 @@
+Dependencies for this project
+yarn add firebase 
+yarn add react-router-dom
+yarn add reselect
+yarn add redux react-redux redux-logger
+yarn add node-sass
+
 Appendix Chapter 322 & 327:
 1. Javascript Promises
 Before promises, you had callback functions what when you nested would create a hell of callbacks as all were async api calls.
@@ -243,3 +250,9 @@ Remember that onClick does not work on react components but only on native DOM c
 
 Chapter 110:
 We made onClick work on custom react component as well, strangely enough, dont know why it didnt work when we tried it for Cart Icon in header
+
+Chapter 115 & 116:
+Everytime a redux state variable is updated, all components using mapStateToProps gets redendered.
+For this redux has Selector
+
+yarn add reselect
