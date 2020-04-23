@@ -5,6 +5,11 @@ yarn add reselect
 yarn add redux react-redux redux-logger
 yarn add node-sass
 
+First time deployment to Apache Server:
+I got react minified error 152 : all the errors were due to comments // and needed to change them to /**/
+Along with that in some components where in the return () i had provided for /**/ comments and it still caused the error
+Once all this was corrected, it worked.
+
 Appendix Chapter 322 & 327:
 1. Javascript Promises
 Before promises, you had callback functions what when you nested would create a hell of callbacks as all were async api calls.
@@ -252,7 +257,28 @@ Chapter 110:
 We made onClick work on custom react component as well, strangely enough, dont know why it didnt work when we tried it for Cart Icon in header
 
 Chapter 115 & 116:
-Everytime a redux state variable is updated, all components using mapStateToProps gets redendered.
+Memoization is caching of function calls so if the input doesnt change the output can be cached and returned and this helps in redux / react because react only checks if the object has changed then it will re-render a component so to prevent unnecessary re-rendering of components using redux state even tough those havent changed we use this concept using the reselect library and Selector
+
+Everytime a redux state variable is updated, all components using mapStateToProps gets redendered even if they dont use that state variable.
 For this redux has Selector
 
 yarn add reselect
+
+Selector :: Input 
+function that gets the whole state and returns a slice maximum one layer deep.
+const selectCart = (reduxState) => reduxState.cart;
+
+Selector :: Output
+
+const selectCartItems = createSelector([Array of Input Selectors], (Output of the Input selectors, ...)=> return Property out of the input param=output of inp selector)
+Function that uses createSelector for caching the output, in that we pass 2 parameters to this function. One of the parameters takes an array of input selectors which usually returns a slice of the state. The 2nd parameter takes a function which is taking some inputs and returning the memoized/cached property. The parameters of this function is a list of output of first parameter for createSelector call.
+eg. Above we have one input selector returning Cart slice from the application redux state. If we wanted to return CartItems property from the Cart slice, we would create it like below
+
+export const selectCartItems = createSelector([selectCart], (cart)=>cart.cartItems);
+
+Chapter 120:
+Reselect library for using Selectors
+
+createStructuredSelector for entering multiple selectors to mapStateToProps()
+
+Chapter 121:

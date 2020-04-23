@@ -1,4 +1,6 @@
-//Default values for the User Reducer State Object
+import { createSelector } from 'reselect';
+
+/*Default values for the User Reducer State Object*/
 const INITIAL_STATE = 
 {
     currentUser: null
@@ -15,7 +17,7 @@ const userReducer = (prevState = INITIAL_STATE, action) =>
     {
         case UserActionTypes.SET_CURRENT_USER :
         {
-            //return a new object based on this action item
+            /*return a new object based on this action item*/
             return (
             {
                 ...prevState,
@@ -36,5 +38,9 @@ export const setCurrentUser = (user) =>
         }
     );
 }
+
+/*input selector*/
+const selectUser = (reduxState) => reduxState.user;
+export const selectCurrentUser = createSelector([selectUser], (user)=>user.currentUser);
 
 export default userReducer;

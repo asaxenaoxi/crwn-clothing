@@ -23,13 +23,13 @@ export const createUserProfileDocument = async (userAuthObj, additionalUserData)
     }
 
     console.log("Fetching queryRef for userAuthObj(id) = ", userAuthObj.uid);
-    //const userRef = firestore.collection('users').doc(`${userAuthObj.uid}`); <=this and below mean the same thing
+    /*const userRef = firestore.collection('users').doc(`${userAuthObj.uid}`); <=this and below mean the same thing*/
     const userQueryRef = firestore.doc(`users/${userAuthObj.uid}`);
 
-    //await is used in any async function calls
+    /*await is used in any async function calls*/
     const userQuerySnapshot = await userQueryRef.get();
     
-    //exists is a property inside the snapshot object which tells if there was data at that location or not
+    /*exists is a property inside the snapshot object which tells if there was data at that location or not*/
     if(!userQuerySnapshot.exists)
     {
         const {displayName, email} = userAuthObj;
@@ -37,7 +37,7 @@ export const createUserProfileDocument = async (userAuthObj, additionalUserData)
 
         try
         {
-            //this function asynchronously creates the data in the document referenced above.
+            /*this function asynchronously creates the data in the document referenced above.*/
             console.log("User(", displayName, ") doesnt exist in firestore, adding data to document(", userAuthObj.uid, ") = ");
             console.log("Additional data= ", additionalUserData);
             await userQueryRef.set({
@@ -53,25 +53,25 @@ export const createUserProfileDocument = async (userAuthObj, additionalUserData)
         }
     }
 
-    //If data doesnt exist, we create it above, else if it does then we just return the ref, in all cases we return the ref
+    /*If data doesnt exist, we create it above, else if it does then we just return the ref, in all cases we return the ref*/
     return userQueryRef;
 }
 
-//we are initializing the key/settings that we got from firebase web in our project settings
+/*we are initializing the key/settings that we got from firebase web in our project settings*/
 firebase.initializeApp(config);
 
-//we are exporting the auth we importing up top
+/*we are exporting the auth we importing up top*/
 export const auth = firebase.auth();
 
 export const firestore = firebase.firestore();
 
-//setting up google OAuth for logging in with google 
+/*setting up google OAuth for logging in with google */
 const provider = new firebase.auth.GoogleAuthProvider();
 
-//Here we are always setting it to trigger google popup to show all the accounts
+/*Here we are always setting it to trigger google popup to show all the accounts*/
 provider.setCustomParameters({prompt: 'select_account'});
 
-//Setting up login
+/*Setting up login*/
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;

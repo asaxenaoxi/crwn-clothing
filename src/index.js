@@ -9,8 +9,7 @@ import App from './App';
 
 import store from './javascript/redux/store';
 
-//Redux Provider component takes redux master state store as a parameter which is then available with every component in the app.
-
+/*Redux Provider component takes redux master state store as a parameter which is then available with every component in the app.*/
 ReactDOM.render(
   <React.StrictMode>
   <Provider store={store}>

@@ -14,13 +14,13 @@ class ShopPage extends React.Component
 
     render() {
         const {collections} = this.state;
-        //deconstructing collections out of state so you dont have to refer to collections with this.state.collections all the time.
+        /*deconstructing collections out of state so you dont have to refer to collections with this.state.collections all the time.*/
 
         return (
             <div>
             {
                 collections.map(({id, ...otherCollectionProps}) => (
-                    <CollectionPreview key={id} {...otherCollectionProps}></CollectionPreview>
+                    <CollectionPreview key={id} {...otherCollectionProps}/>
                 ))
             }
             </div>
