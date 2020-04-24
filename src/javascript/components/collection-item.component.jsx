@@ -3,10 +3,10 @@ import '../../styles/collection-item.styles.scss';
 import CustomButton from './custom-button.components';
 
 import { connect } from 'react-redux';
-import { addItemToCart } from '../redux/cart.redux';
+import { actionAddItemToCart } from '../redux/cart.redux';
 
 /*(props) OR ({id, name, price, imageUrl})*/
-const CollectionItem = ({item, addItemToCart}) => 
+const CollectionItem = ({item, actionAddItemToCart}) => 
 {
     /*img (hover add Add to Cart button)
     name <> price*/
@@ -28,7 +28,7 @@ const CollectionItem = ({item, addItemToCart}) =>
                 <span className="name">{name}</span>
                 <span className="price">{price}</span>
             </div>
-            <CustomButton buttonStyle='invesrted' onClick={() => addItemToCart(item)}> Add to Cart </CustomButton>            
+            <CustomButton buttonStyle='invesrted' onClick={() => actionAddItemToCart(item)}> Add to Cart </CustomButton>            
         </div>
     )
 };
@@ -39,7 +39,7 @@ you use the properties by name, those functions are called with the parameter*/
 const mapDispatchToProps = (dispatch) =>
 (
     {
-        addItemToCart: (item) => dispatch(addItemToCart(item))
+        actionAddItemToCart: (item) => dispatch(actionAddItemToCart(item))
     }
 )
 

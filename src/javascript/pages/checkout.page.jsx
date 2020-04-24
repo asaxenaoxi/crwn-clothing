@@ -43,7 +43,6 @@ class CheckoutPage extends React.Component
     }
 }
 
-/*dispatch is used only for actions like calling a function and updating state*/
 const mapDispatchToProps = null;
 
 const mapStateToProps = createStructuredSelector(
