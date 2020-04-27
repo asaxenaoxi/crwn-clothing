@@ -4,6 +4,7 @@ yarn add react-router-dom
 yarn add reselect
 yarn add redux react-redux redux-logger
 yarn add node-sass
+yarn add redux-persist
 
 First time deployment to Apache Server:
 I got react minified error 152 : all the errors were due to comments // and needed to change them to /**/
@@ -281,4 +282,29 @@ Reselect library for using Selectors
 
 createStructuredSelector for entering multiple selectors to mapStateToProps()
 
-Chapter 121:
+Chapter 128:
+How do you persist redux store on to Client Browser Local storage
+
+Steps:
+1. yarn add redux-persist
+2. Goto store.js -> import persistStore from redux-persist => this will hold and wrap the persisted version of the redux store/state
+3. create a persistor = persistStore(store) which is a wrapped version of our store, which basically will keep ensuring it stores things from the state onto the localstorage.
+4. export both persistor and store in place of just the store obj
+
+5. In root reducer import persistReducer from redux-persist
+6. import storage from 'redux-persist/lib/storage' <- this basically tells redux-persist to use local storage as the default storage for the persisted store
+7. This is the config to tell redux-persist to store on local storage. key is the starting point and we want everything from root to be stored. storage is where it will be stored which from above import in step 6 is the local storage. whitelist: is all the sub/slice reducers we want to persist from the root reducer
+const persistConfig = {key: 'root', storage, whitelist: ['cart']}
+8. store the combineReducer call into rootReducer because we will need to pass it to persistReducer HOC (higher order component)
+9. export out persistReducer(persistConfig, rootReducer)
+
+10. need to import { store, persistor } from './javascript/redux/store' . we were already importing store, so just need to add the new persistor which stores the state as well
+11. import { PersistGate } from 'redux-persist/integration/react', this component needs to be wrapped around the app, so it takes the store from the <Provider> component and pass it to the persistor for storage.
+12. Wrap <PersistGate persistor={persistor}> around <App>
+
+There is nothing extra one needs to do, redux state configured is now automatically stored even after browser is closed.
+
+In general you can directly use the following to access storage in javascript
+window.sessionStorage
+window.localStorage.getItem(key) = JSON.parse()
+window.localStorage.setItem(key, JSON.stringify(obj))

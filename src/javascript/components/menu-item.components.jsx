@@ -11,8 +11,8 @@ import '../../styles/menu-item.styles.scss';
 
 const MenuItem = (props) => 
 {
-    console.log("MenuItem Component Properties:");
-    console.log(props);
+    /*console.log("MenuItem Component Properties:");
+    console.log(props);*/
 
     /*
     onClick={() => props.history.push(`${props.match.url}${props.linkUrl}`)}>

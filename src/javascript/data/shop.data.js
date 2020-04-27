@@ -1,12 +1,33 @@
-const SHOP_DATA = [
-  {
+/*Collections data is an Array of Object of Category Data
+Category Data is an object of id, category name, route to use, an array of items object
+items object has id, name, image and price for each item in the category
+
+Collections
+  [Categories]
+    {...[Items]}
+          {...}
+*/
+
+/*Stage 2 of storing this Data , similar to how noSQL stores data, like a hashmap with a key instead of an array of objections
+Collections
+{
+  Key: Value = Categories
+                {
+                  key: value
+                  key = items: [{item} = {key:value pairs} ]
+                }
+}
+*/
+
+const CONST_SHOP_DATA = {
+  hats: {
     id: 1,
     title: 'Hats',
     routeName: 'hats',
     items: [
       {
         id: 1,
-        name: 'Brown Brim',
+        name: 'Brown Brimy',
         imageUrl: 'https://i.ibb.co/ZYW3VTp/brown-brim.png',
         price: 25
       },
@@ -60,7 +81,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  sneakers: {
     id: 2,
     title: 'Sneakers',
     routeName: 'sneakers',
@@ -115,7 +136,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  jackets: {
     id: 3,
     title: 'Jackets',
     routeName: 'jackets',
@@ -152,7 +173,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  womens: {
     id: 4,
     title: 'Womens',
     routeName: 'womens',
@@ -201,7 +222,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  mens: {
     id: 5,
     title: 'Mens',
     routeName: 'mens',
@@ -244,6 +265,6 @@ const SHOP_DATA = [
       }
     ]
   }
-];
+}
 
-export default SHOP_DATA;
+export default CONST_SHOP_DATA;
