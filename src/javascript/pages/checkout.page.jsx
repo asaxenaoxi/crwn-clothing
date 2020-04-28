@@ -8,6 +8,10 @@ import {selectCartItems, selectCartItemsTotal} from '../redux/cart.redux';
 
 import CheckoutItem from '../components/checkout-item.component';
 
+/*When there is one default export, you can not import with {}, you need to mention with {} and whatever name you will give, it will 
+import the component from that file with this new name(if different)*/
+import StripeCheckoutButton from '../components/stripe-button.component';
+
 class CheckoutPage extends React.Component 
 {
     render() 
@@ -38,6 +42,7 @@ class CheckoutPage extends React.Component
                     cartItems.map((cartItem) => (<CheckoutItem key={cartItem.id} cartItem={cartItem}/>))
                 }
                 <div className="total"><span> TOTAL: ${cartItemTotal}</span></div>
+                <StripeCheckoutButton price={cartItemTotal}/>
             </div>
         );
     }
